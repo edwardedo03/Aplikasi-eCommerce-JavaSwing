@@ -18,7 +18,7 @@ public class History_db_Controller {
     
     public void selectListHistory(HistoryModel historyModel) {
         try {
-            ps = connection.prepareStatement("" + "SELECT tanggal_transaksi, totalHargaCart, alamat FROM tbl_history WHERE user_id = ? GROUP BY tanggal_transaksi");
+            ps = connection.prepareStatement("" + "SELECT tanggal_transaksi, SUM(totalHargaCart) AS totalHargaCart, alamat FROM tbl_history WHERE user_id = ? GROUP BY tanggal_transaksi, alamat");
             ps.setInt(1, UserSession.getId_session());
             
             ResultSet rs = ps.executeQuery();
